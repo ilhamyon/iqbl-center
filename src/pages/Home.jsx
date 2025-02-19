@@ -108,7 +108,7 @@ function Home() {
             <Skeleton active />
           </div>
         ) : (
-          <div className="py-6 px-4 flex items-center">
+          <div className="py-6 px-4 flex items-center pt-10">
             <div className="px-0">
               <img className="h-16 w-16 rounded-full object-cover" src={ serverDataUser?.data[0]?.imageURL ||logo} width={50}/>
             </div>

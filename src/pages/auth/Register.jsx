@@ -19,9 +19,14 @@ const createSanityUser = async (iqbalCenterData) => {
             create: {
               _type: 'user-iqbalcenter', // Ganti dengan jenis dokumen pengguna di Sanity Anda
               name: iqbalCenterData.name,
+              slug: {
+                current: iqbalCenterData.name.toLowerCase().replace(/\s+/g, '-')
+              },          
               email: iqbalCenterData.email,
               password: iqbalCenterData.password,
-              type: iqbalCenterData.type,
+              role: iqbalCenterData.role,
+              karir: iqbalCenterData.karir,
+              posisi: iqbalCenterData.posisi,
             },
           },
         ],
@@ -43,9 +48,10 @@ function Register() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    karir: '',
+    posisi: '',
     password: '',
-    type: 'User',
-    umur: ''
+    role: 'user',
   });
 
   console.log(formData);
@@ -63,7 +69,9 @@ function Register() {
         name: '',
         email: '',
         password: '',
-        type: '',
+        role: '',
+        karir: '',
+        posisi: '',
       });
     } catch (error) {
       console.error('Error registering user:', error);
@@ -89,15 +97,30 @@ function Register() {
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 required
               />
+              <label>Posisi Dalam Tim</label>
+              <Select
+                // defaultValue="Laki-laki"
+                name="posisi"
+                size="large"
+                className="mb-4 w-full"
+                placeholder="Posisi Dalam Tim"
+                required
+                value={formData.posisi || undefined}
+                onChange={(value) => setFormData({ ...formData, posisi: value })}
+              >
+                <Option value="Korkab">Korkab</Option>
+                <Option value="Korcam">Korcam</Option>
+                <Option value="Relawan">Relawan</Option>
+              </Select>
               <label>Pekerjaan</label>
               <Input
                 type="text"
-                name="name"
+                name="karir"
                 placeholder="Pekerjaan"
                 size="large"
                 className="mb-4 mt-2 border"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                value={formData.karir}
+                onChange={(e) => setFormData({ ...formData, karir: e.target.value })}
                 required
               />
               <label>Email</label>
